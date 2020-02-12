@@ -32,8 +32,9 @@ def dbSetup():
         connection.close()
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='', static_url_path='')
 app.config.from_object(__name__)
+
 
 # Managing connections
 

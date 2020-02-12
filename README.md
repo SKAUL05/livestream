@@ -15,16 +15,16 @@
 - **Option 2**
   - 👯 Clone this repo to your local machine using `https://github.com/SKAUL05/livestream.git`
 
-### Installing
+## Installing
 
 Run `requirements.txt` to install all the dependencies
 
-### Start RethinkDB
+## Start RethinkDB
 
 Make sure you have RethinkDB running.
 If you are not running RethinkDB on your local machine with the default settings.
 
-### Running the application
+## Running the application
 
 Firstly we'll need to create the database livestream and the table used by this app: ideas. You can do this by running:
 

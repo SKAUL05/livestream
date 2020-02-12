@@ -19,6 +19,13 @@
 
 Run `requirements.txt` to install all the dependencies
 
+### Start RethinkDB
+
+Make sure you have RethinkDB running.
+If you are not running RethinkDB on your local machine with the default settings.
+
+### Running the application
+
 Firstly we'll need to create the database livestream and the table used by this app: ideas. You can do this by running:
 
 ```

@@ -1,4 +1,3 @@
-
 import argparse
 import json
 import os
@@ -14,9 +13,9 @@ r = rdb.RethinkDB()
 
 # We will use these settings later in the code to connect to the
 # RethinkDB server.
-RDB_HOST = os.environ.get('RDB_HOST') or 'localhost'
-RDB_PORT = os.environ.get('RDB_PORT') or 28015
-PROJECT_DB = 'livestream'
+RDB_HOST = os.environ.get("RDB_HOST") or "localhost"
+RDB_PORT = os.environ.get("RDB_PORT") or 28015
+PROJECT_DB = "livestream"
 
 # Setting up the app database
 
@@ -25,10 +24,10 @@ def dbSetup():
     connection = r.connect(host=RDB_HOST, port=RDB_PORT)
     try:
         r.db_create(PROJECT_DB).run(connection)
-        r.db(PROJECT_DB).table_create('ideas').run(connection)
-        print('Database setup completed. Now run the app without --setup.')
+        r.db(PROJECT_DB).table_create("ideas").run(connection)
+        print("Database setup completed. Now run the app without --setup.")
     except RqlRuntimeError:
-        print('App database already exists. Run the app without --setup.')
+        print("App database already exists. Run the app without --setup.")
     finally:
         connection.close()
 
@@ -58,9 +57,9 @@ def teardown_request(exception):
         pass
 
 
-@app.route("/livestream", methods=['GET'])
+@app.route("/livestream", methods=["GET"])
 def get_todos():
-    selection = list(r.table('ideas').run(g.rdb_conn))
+    selection = list(r.table("ideas").run(g.rdb_conn))
     print(selection)
     for obj in selection:
         if obj.get("time"):
@@ -69,22 +68,22 @@ def get_todos():
     return json.dumps(selection)
 
 
-@app.route("/livestream", methods=['POST'])
+@app.route("/livestream", methods=["POST"])
 def new_todo():
     entry_data = request.json
-    entry_data["time"] = r.expr(datetime.now(r.make_timezone('+05:30')))
-    inserted = r.table('ideas').insert(request.json).run(g.rdb_conn)
-    return jsonify(id=inserted['generated_keys'][0])
+    entry_data["time"] = r.expr(datetime.now(r.make_timezone("+05:30")))
+    inserted = r.table("ideas").insert(request.json).run(g.rdb_conn)
+    return jsonify(id=inserted["generated_keys"][0])
 
 
 @app.route("/")
 def show_todos():
-    return render_template('index.html')
+    return render_template("index.html")
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Run the Flask todo app')
-    parser.add_argument('--setup', dest='run_setup', action='store_true')
+    parser = argparse.ArgumentParser(description="Run the Flask todo app")
+    parser.add_argument("--setup", dest="run_setup", action="store_true")
 
     args = parser.parse_args()
     if args.run_setup:

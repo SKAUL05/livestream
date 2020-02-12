@@ -2,7 +2,7 @@
 import argparse
 import json
 import os
-
+from datetime import datetime
 from flask import Flask, g, jsonify, render_template, request, abort
 
 import rethinkdb as rdb
@@ -58,91 +58,23 @@ def teardown_request(exception):
         pass
 
 
-# Listing existing todos
-
-# To retrieve all existing tasks, we are using
-# [`r.table`](http://www.rethinkdb.com/api/python/table/)
-# command to query the database in response to a GET request from the
-# browser. When `table(table_name)` isn't followed by an additional
-# command, it returns all documents in the table.
-#
-# Running the query returns an iterator that automatically streams
-# data from the server in efficient batches.
 @app.route("/livestream", methods=['GET'])
 def get_todos():
     selection = list(r.table('ideas').run(g.rdb_conn))
+    print(selection)
+    for obj in selection:
+        if obj.get("time"):
+            obj["time"] = obj["time"].strftime("%d-%B-%Y, %I:%M:%S %p")
+    print(selection)
     return json.dumps(selection)
-
-# Creating a todo
-
-# We will create a new todo in response to a POST request to `/todos`
-# with a JSON payload using
-# [`table.insert`](http://www.rethinkdb.com/api/python/insert/).
-#
-# The `insert` operation returns a single object specifying the number
-# of successfully created objects and their corresponding IDs:
-#
-# ```
-# {
-#   "inserted": 1,
-#   "errors": 0,
-#   "generated_keys": [
-#     "773666ac-841a-44dc-97b7-b6f3931e9b9f"
-#   ]
-# }
-# ```
 
 
 @app.route("/livestream", methods=['POST'])
 def new_todo():
+    entry_data = request.json
+    entry_data["time"] = r.expr(datetime.now(r.make_timezone('+05:30')))
     inserted = r.table('ideas').insert(request.json).run(g.rdb_conn)
     return jsonify(id=inserted['generated_keys'][0])
-
-
-# Retrieving a single todo
-
-# Every new task gets assigned a unique ID. The browser can retrieve
-# a specific task by GETing `/todos/<todo_id>`. To query the database
-# for a single document by its ID, we use the
-# [`get`](http://www.rethinkdb.com/api/python/get/)
-# command.
-#
-# Using a task's ID will prove more useful when we decide to update
-# it, mark it completed, or delete it.
-@app.route("/livestream/<string:livestream_id>", methods=['GET'])
-def get_todo(todo_id):
-    todo = r.table('ideas').get(todo_id).run(g.rdb_conn)
-    return json.dumps(todo)
-
-# Editing/Updating a task
-
-# Updating a todo (editing it or marking it completed) is performed on
-# a `PUT` request.  To save the updated todo we'll do a
-# [`replace`](http://www.rethinkdb.com/api/python/replace/).
-@app.route("/livestream/<string:livestream_id>", methods=['PUT'])
-def update_todo(todo_id):
-    return jsonify(r.table('ideas').get(todo_id).replace(request.json)
-                    .run(g.rdb_conn))
-
-# If you'd like the update operation to happen as the result of a
-# `PATCH` request (carrying only the updated fields), you can use the
-# [`update`](http://www.rethinkdb.com/api/python/update/)
-# command, which will merge the JSON object stored in the database
-# with the new one.
-@app.route("/livestream/<string:livestream_id>", methods=['PATCH'])
-def patch_todo(todo_id):
-    return jsonify(r.table('ideas').get(todo_id).update(request.json)
-                    .run(g.rdb_conn))
-
-
-# Deleting a task
-
-# To delete a todo item we'll call a
-# [`delete`](http://www.rethinkdb.com/api/python/delete/)
-# command on a `DELETE /todos/<todo_id>` request.
-@app.route("/livestream/<string:livestream_id>", methods=['DELETE'])
-def delete_todo(todo_id):
-    return jsonify(r.table('ideas').get(todo_id).delete().run(g.rdb_conn))
 
 
 @app.route("/")

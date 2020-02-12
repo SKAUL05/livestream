@@ -26,16 +26,16 @@
                 <form id="form">
                     <div class="form-group">
                         <input type="text" id="idea-text" class="form-control bg-dark text-white"
-                            placeholder="Enter idea (30 chars max)" maxlength="30" required />
+                            placeholder="Enter idea (30 chars max)" maxlength="30" autocomplete="off" required />
                     </div>
                     <div class="form-group">
                         <input type="text" id="idea-tech" class="form-control bg-dark text-white"
-                            placeholder="Language, framework, etc" maxlength="30" required />
+                            placeholder="Language, framework, etc" maxlength="30" autocomplete="off" required />
                     </div>
 
                     <div class="form-group">
                         <input type="text" id="idea-viewer" class="form-control bg-dark text-white"
-                            placeholder="Enter your name" maxlength="20" required />
+                            placeholder="Enter your name" maxlength="20" autocomplete="off" required />
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-block">
@@ -52,59 +52,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-        // // Socket.io setup
-        // const socket = io('http://localhost:5000');
-
-        // // Init feathers app
-        // const app = feathers();
-
-        // // // Register socket.io to talk to server
-        // app.configure('http://localhost:5000');
-
         document.getElementById('form').addEventListener('submit', sendIdea);
-
-
-        function renderIdea(idea) {
-            document.getElementById(
-                'ideas'
-            ).innerHTML += `<div class="card bg-secondary my-3">
-              <div class="card-body">
-                <p class="lead">
-                  ${idea.text} <strong>(${idea.tech})</strong>
-                  <br />
-                  <em>Submitted by ${idea.viewer}</em>
-                  <br />
-                  <small>${idea.id}</small>
-                </p>
-              </div>
-            </div>`;
-        }
-
-        async function init() {
-            // Find ideas
-            $.ajax({
-                url: '/livestream',
-                type: 'get',
-                success: function (data) {
-                    // alert(data);
-                    const ideas = JSON.parse(data);
-                    console.log(ideas);
-                    // Add existing ideas to list
-                    ideas.forEach(renderIdea);
-                    console.log(ideas);
-                }
-            });
-
-            // const ideas = await app.service('ideas').find();
-            // Add existing ideas to list
-            // ideas.forEach(renderIdea);
-
-
-            // Add idea in realtime
-            // app.service('ideas').on('created', renderIdea);
-        }
-
-
         async function sendIdea(e) {
             const text = document.getElementById('idea-text');
             const tech = document.getElementById('idea-tech');
@@ -123,10 +71,6 @@
                 success: function (data) {
                     const ideas = JSON.parse(data);
                     console.log(ideas);
-                    // Add existing ideas to list
-                    // ideas.forEach(renderIdea);
-                    // console.log(ideas);
-
                 },
                 data: JSON.stringify(jsonToSend)
             });
@@ -137,6 +81,41 @@
         }
 
 
+        function renderIdea(idea) {
+            document.getElementById(
+                'ideas'
+            ).innerHTML += `<div class="card bg-secondary my-3">
+              <div class="card-body">
+                <p class="lead">
+                  ${idea.text} <strong>(${idea.tech})</strong>
+                  <br />
+                  <em>Submitted by ${idea.viewer}</em>
+                  <br />
+                  <small>${idea.time}</small>
+                </p>
+              </div>
+            </div>`;
+        }
+
+        async function init() {
+            // Find ideas
+            $.ajax({
+                url: '/livestream',
+                type: 'get',
+                success: function (data) {
+                    // alert(data);
+                    document.getElementById(
+                        'ideas'
+                    ).innerHTML = ``;
+                    const ideas = JSON.parse(data);
+                    console.log(ideas);
+                    // Add existing ideas to list
+                    ideas.forEach(renderIdea);
+                    console.log(ideas);
+                }
+            });
+            setTimeout(init, 5000);
+        }
 
         init();
     </script>

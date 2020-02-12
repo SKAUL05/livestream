@@ -21,7 +21,7 @@ Run `requirements.txt` to install all the dependencies
 
 ## Start RethinkDB
 
-Make sure you have RethinkDB running. You can start RethinkDB by typing below command
+Make sure you have RethinkDB running. You can start RethinkDB by typing below command in terminal.
 
 ```
 rethinkdb

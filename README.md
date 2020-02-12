@@ -21,8 +21,11 @@ Run `requirements.txt` to install all the dependencies
 
 ## Start RethinkDB
 
-Make sure you have RethinkDB running.
-If you are not running RethinkDB on your local machine with the default settings.
+Make sure you have RethinkDB running. You can RethinkDB by typing below command
+
+```
+rethinkdb
+```
 
 ## Running the application
 

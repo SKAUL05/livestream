@@ -47,11 +47,10 @@ app.config.from_object(__name__)
 @app.before_request
 def before_request():
     try:
-        print("In Here")
-        print(RDB_HOST)
         g.rdb_conn = r.connect(host=RDB_HOST, port=RDB_PORT, db=PROJECT_DB ,user =DB_USER, password = DB_PASSWORD )
         print(g.rdb_conn)
-    except RqlDriverError:
+    except RqlDriverError as e:
+        print(e)
         abort(503, "No database connection could be established.")
 
 

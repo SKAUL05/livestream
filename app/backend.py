@@ -23,7 +23,7 @@ DB_PASSWORD = os.environ.get("PROJECT_PASSWORD","")
 
 
 def dbSetup():
-    connection = r.connect(host=RDB_HOST, port=RDB_PORT)
+    connection = r.connect(host=RDB_HOST, port=RDB_PORT, db=PROJECT_DB ,user =DB_USER, password = DB_PASSWORD )
     try:
         r.db_create(PROJECT_DB).run(connection)
         r.db(PROJECT_DB).table_create("ideas").run(connection)
@@ -47,6 +47,8 @@ app.config.from_object(__name__)
 @app.before_request
 def before_request():
     try:
+        print("In Here")
+        print(RDB_HOST)
         g.rdb_conn = r.connect(host=RDB_HOST, port=RDB_PORT, db=PROJECT_DB ,user =DB_USER, password = DB_PASSWORD )
         print(g.rdb_conn)
     except RqlDriverError:

@@ -13,9 +13,9 @@ r = rdb.RethinkDB()
 
 # We will use these settings later in the code to connect to the
 # RethinkDB server.
-RDB_HOST = os.environ.get("RDB_HOST") or "localhost"
-RDB_PORT = os.environ.get("RDB_PORT") or 28015
-PROJECT_DB = "livestream"
+RDB_HOST = os.environ.get("RDB_HOST", "localhost")
+RDB_PORT = os.environ.get("RDB_PORT", 28015)
+PROJECT_DB = os.environ.get("PROJECT_DB","livestream")
 
 # Setting up the app database
 
@@ -46,6 +46,7 @@ app.config.from_object(__name__)
 def before_request():
     try:
         g.rdb_conn = r.connect(host=RDB_HOST, port=RDB_PORT, db=PROJECT_DB)
+        print(g.rdb_conn)
     except RqlDriverError:
         abort(503, "No database connection could be established.")
 

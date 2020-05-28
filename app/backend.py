@@ -53,7 +53,7 @@ def before_request():
     except RqlDriverError as e:
         print("Errorr..........")
         print(e)
-        abort(503, "No database connection could be established.")
+        print("No database connection could be established.")
 
 
 @app.teardown_request

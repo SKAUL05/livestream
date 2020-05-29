@@ -26,7 +26,6 @@ class Ideas(db.Model):
         self.text = data.get("text","")
         self.tech = data.get("tech","")
         self.viewer = data.get("viewer", "")
-        self.time = data.get("time","")
 
 
         

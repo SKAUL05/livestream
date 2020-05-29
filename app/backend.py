@@ -85,9 +85,11 @@ def get_todos():
 def new_todo():
     entry_data = request.json
     entry_data["time"] = datetime.datetime.now()
+    print(entry_data)
     idea = Ideas(entry_data)
     db.session.add(idea)
     db.commit()
+    print("Here......")
     return jsonify(id=idea.id)
 
 

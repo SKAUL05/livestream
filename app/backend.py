@@ -92,6 +92,9 @@ def show_todos():
     return render_template("index.html")
 
 
+if __name__ == '__main__':
+    app.run(debug=True)
+
 # if __name__ == "__main__":
 #     parser = argparse.ArgumentParser(description="Run the Flask todo app")
 #     parser.add_argument("--setup", dest="run_setup", action="store_true")

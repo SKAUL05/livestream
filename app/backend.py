@@ -83,7 +83,7 @@ def get_todos():
                 obj.time = obj.time.strftime("%d-%B-%Y, %I:%M:%S %p")
             return_list.append(retr_dict(obj=obj))
         print(return_list)
-        return json.dumps(selection)
+        return json.dumps(return_list)
     except Exception as e:
         print(e)
         return json.dumps({})

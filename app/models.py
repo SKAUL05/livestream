@@ -1,5 +1,18 @@
-from backend import db
 import datetime
+import os
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__, static_folder='', static_url_path='')
+app.config.from_object(__name__)
+app.config.update(
+    SQLALCHEMY_DATABASE_URI=os.environ.get("DATABASE_URL"),
+    SQLALCHEMY_TRACK_MODIFICATIONS=False,
+)
+
+# initialize the database connection
+db = SQLAlchemy(app)
+
 
 class Ideas(db.Model):
     __tablename__ = 'ideas'

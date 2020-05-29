@@ -1,11 +1,12 @@
 import argparse
 import json
 import os
-from datetime import datetime
+import datetime
 from flask import Flask, g, jsonify, render_template, request, abort
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from .models import Ideas
+import time
 
 app = Flask(__name__, static_folder='', static_url_path='')
 app.config.from_object(__name__)
@@ -83,8 +84,8 @@ def get_todos():
 
 @app.route("/livestream", methods=["POST"])
 def new_todo():
+    print("Todo......")
     entry_data = request.json
-    entry_data["time"] = datetime.datetime.now()
     print(entry_data)
     idea = Ideas(entry_data)
     db.session.add(idea)

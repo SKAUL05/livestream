@@ -28,6 +28,5 @@ class Ideas(db.Model):
         self.viewer = data.get("viewer", "")
         self.time = data.get("time","")
 
-db.create_all()
-db.session.commit()
+
         

@@ -27,5 +27,13 @@ class Ideas(db.Model):
         self.tech = data.get("tech","")
         self.viewer = data.get("viewer", "")
 
+    def retr_dict(self,obj):
+        return_dict = {}
+        if obj:
+            return_dict['text'] = obj.text
+            return_dict['tech'] = obj.tech
+            return_dict['viewer'] = obj.viewer
+            return_dict['time'] = obj.time
+        return return_dict
 
         

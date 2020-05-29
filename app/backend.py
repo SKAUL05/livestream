@@ -68,7 +68,7 @@ db = SQLAlchemy(app)
 def get_todos():
     print("In Here......")
     try:
-        selection = Ideas.query.all()
+        selection = Ideas.query.order_by(Ideas.id).all()
         print("Objects %s ",selection)
         for obj in selection:
             if obj.get("time"):

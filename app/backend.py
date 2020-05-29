@@ -70,10 +70,12 @@ def get_todos():
     try:
         selection = Ideas.query.order_by(Ideas.id).all()
         print("Objects %s ",selection)
+        return_list = []
         for obj in selection:
-            if obj.get("time"):
-                obj["time"] = obj["time"].strftime("%d-%B-%Y, %I:%M:%S %p")
-        print(selection)
+            if obj.time:
+                obj.time = obj.time.strftime("%d-%B-%Y, %I:%M:%S %p")
+            return_list.append(obj.serialize)
+        print(return_list)
         return json.dumps(selection)
     except Exception as e:
         print(e)

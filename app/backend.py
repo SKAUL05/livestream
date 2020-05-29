@@ -18,9 +18,6 @@ app.config.update(
 # initialize the database connection
 db = SQLAlchemy(app)
 
-# initialize database migration management
-migrate = Migrate(app, db)
-
 
 
 
@@ -86,10 +83,10 @@ def get_todos():
 def new_todo():
     print("Todo......")
     entry_data = request.json
-    print(entry_data)
+    print(entry_data['text'])
     idea = Ideas(entry_data)
     db.session.add(idea)
-    db.commit()
+    db.session.commit()
     print("Here......")
     return jsonify(id=idea.id)
 

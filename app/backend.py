@@ -62,7 +62,14 @@ db = SQLAlchemy(app)
 #         g.rdb_conn.close()
 #     except AttributeError:
 #         pass
-
+def retr_dict(obj=None):
+    return_dict = {}
+    if obj:
+        return_dict['text'] = obj.text
+        return_dict['tech'] = obj.tech
+        return_dict['viewer'] = obj.viewer
+        return_dict['time'] = obj.time
+    return return_dict
 
 @app.route("/livestream", methods=["GET"])
 def get_todos():
@@ -74,7 +81,7 @@ def get_todos():
         for obj in selection:
             if obj.time:
                 obj.time = obj.time.strftime("%d-%B-%Y, %I:%M:%S %p")
-            return_list.append(Ideas.retr_dict(obj))
+            return_list.append(retr_dict(obj=obj))
         print(return_list)
         return json.dumps(selection)
     except Exception as e:

@@ -68,14 +68,18 @@ migrate = Migrate(app, db)
 
 @app.route("/livestream", methods=["GET"])
 def get_todos():
-    selection = Ideas.query.all()
-    print(selection)
-    for obj in selection:
-        if obj.get("time"):
-            obj["time"] = obj["time"].strftime("%d-%B-%Y, %I:%M:%S %p")
-    print(selection)
-    return json.dumps(selection)
-
+    print("In Here......")
+    try:
+        selection = Ideas.query.all()
+        print("Objects %s ",selection)
+        for obj in selection:
+            if obj.get("time"):
+                obj["time"] = obj["time"].strftime("%d-%B-%Y, %I:%M:%S %p")
+        print(selection)
+        return json.dumps(selection)
+    except Exception as e:
+        print(e)
+        return json.dumps({})
 
 @app.route("/livestream", methods=["POST"])
 def new_todo():

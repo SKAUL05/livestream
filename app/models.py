@@ -1,4 +1,4 @@
-from app.backend import db
+from backend import db
 import datetime
 
 class Ideas(db.Model):
@@ -14,6 +14,6 @@ class Ideas(db.Model):
         self.tech = data.get("tech","")
         self.viewer = data.get("viewer", "")
         self.time = data.get("time","")
-        
+
 
         

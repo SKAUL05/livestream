@@ -2,7 +2,7 @@ import os
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
-from app.backend import app,db
+from backend import app,db
 
 app.config.from_object(__name__)
 

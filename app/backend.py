@@ -5,7 +5,7 @@ from datetime import datetime
 from flask import Flask, g, jsonify, render_template, request, abort
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from app.models import Ideas
+from models import Ideas
 
 app = Flask(__name__, static_folder='', static_url_path='')
 app.config.from_object(__name__)

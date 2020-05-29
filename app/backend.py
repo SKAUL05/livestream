@@ -68,7 +68,7 @@ migrate = Migrate(app, db)
 
 @app.route("/livestream", methods=["GET"])
 def get_todos():
-    selection = Ideas.qyery.all()
+    selection = Ideas.query.all()
     print(selection)
     for obj in selection:
         if obj.get("time"):

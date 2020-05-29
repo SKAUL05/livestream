@@ -14,8 +14,8 @@ app.config.update(
 # initialize the database connection
 db = SQLAlchemy(app)
 app.config.from_object(__name__)
-
-migrate = Migrate(app, db)
+MIGRATION_DIR = os.path.join('app', 'migrations')
+migrate = Migrate(app, db , dirctory = MIGRATION_DIR)
 manager = Manager(app)
 
 manager.add_command('db', MigrateCommand)

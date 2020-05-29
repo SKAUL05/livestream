@@ -74,7 +74,7 @@ def get_todos():
         for obj in selection:
             if obj.time:
                 obj.time = obj.time.strftime("%d-%B-%Y, %I:%M:%S %p")
-            return_list.append(obj.serialize)
+            return_list.append(dict(obj))
         print(return_list)
         return json.dumps(selection)
     except Exception as e:

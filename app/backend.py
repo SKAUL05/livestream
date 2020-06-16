@@ -17,6 +17,7 @@ app.config.update(
 
 # initialize the database connection
 db = SQLAlchemy(app)
+db.create_all()
 
 
 

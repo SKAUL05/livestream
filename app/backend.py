@@ -58,12 +58,12 @@ db.session.commit()
 #         print("No database connection could be established.")
 
 
-# @app.teardown_request
-# def teardown_request(exception):
-#     try:
-#         g.rdb_conn.close()
-#     except AttributeError:
-#         pass
+@app.teardown_request
+def teardown_request(exception):
+    if exception:
+        db.session.rollback()
+    db.session.remove()
+
 def retr_dict(obj=None):
     return_dict = {}
     if obj:

@@ -8,8 +8,6 @@ from flask_sqlalchemy import SQLAlchemy
 from .models import Ideas
 import time
 
-
-
 app = Flask(__name__, static_folder='', static_url_path='')
 app.config.from_object(__name__)
 app.config.update(
@@ -65,9 +63,11 @@ def teardown_request(exception):
 def retr_dict(obj=None):
     return_dict = {}
     if obj:
+        return_dict['id'] = obj.id
         return_dict['text'] = obj.text
         return_dict['tech'] = obj.tech
         return_dict['viewer'] = obj.viewer
+        return_dict['count'] = obj.upVote
         if obj.time:
             readable = obj.time + timedelta(hours = 5) +timedelta(minutes = 30)
             return_dict['time'] = readable.strftime("%d-%B-%Y, %I:%M:%S %p")
@@ -100,6 +100,18 @@ def new_todo():
     db.session.commit()
     print("Here......")
     return jsonify(id=idea.id)
+
+@app.route("/upvote", methods = ['POST'])
+def add_upvote():
+    print("Upvote")
+    u_data = request.json
+    obj = Ideas.query.filter_by(id = u_data['id']).first()
+    if obj.upVote:
+        obj.upVote += 1
+    else:
+        obj.upVote = 1
+    db.session.commit()
+    return json.dumps({"success":True,"count":obj.upVote})
 
 
 @app.route("/")

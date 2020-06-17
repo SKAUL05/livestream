@@ -3,6 +3,8 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
+
+
 app = Flask(__name__, static_folder='', static_url_path='')
 app.config.from_object(__name__)
 app.config.update(
@@ -21,6 +23,7 @@ class Ideas(db.Model):
     tech = db.Column(db.String(200))
     viewer = db.Column(db.String(200))
     time = db.Column(db.DateTime, default = datetime.datetime.now)
+    upVote = db.Column(db.Integer, default = 0)
 
     def __init__(self, data = {}):
         self.text = data.get("text","")
@@ -34,6 +37,5 @@ class Ideas(db.Model):
             return_dict['tech'] = obj.tech
             return_dict['viewer'] = obj.viewer
             return_dict['time'] = obj.time
+            return_dict['upVote'] = obj.upVote
         return return_dict
-
-        

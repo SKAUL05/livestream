@@ -1,4 +1,19 @@
 document.getElementById('form').addEventListener('submit', sendIdea);
+function upvote(ele, id) {
+    console.log(id);
+     $.ajax({
+        url: '/upvote',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            const ideas = JSON.parse(data);
+            console.log(ideas);
+        },
+        data: JSON.stringify({'id':id})
+    });
+} 
+
 async function sendIdea(e) {
     const text = document.getElementById('idea-text');
     const tech = document.getElementById('idea-tech');
@@ -38,7 +53,9 @@ function renderIdea(idea) {
           <em>Submitted by ${idea.viewer}</em>
           <br />
           <small>${idea.time}</small>
+           <i onclick="upvote(this,${idea.id})" class="fa fa-thumbs-up"></i>
         </p>
+       
       </div>
     </div>`;
 }
@@ -60,7 +77,7 @@ async function init() {
             console.log(ideas);
         }
     });
-    setTimeout(init, 5000);
+    // setTimeout(init, 5000);
 }
 
 init();

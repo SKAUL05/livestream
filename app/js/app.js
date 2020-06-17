@@ -14,6 +14,7 @@ function upvote(ele, id) {
         dataType: 'json',
         contentType: 'application/json',
         success: function (data) {
+            console.log(data);
             const ideas = JSON.parse(data);
             console.log(ideas);
             addUpVote(ideas.count);

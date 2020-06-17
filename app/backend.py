@@ -112,6 +112,7 @@ def add_upvote():
         obj.upVote += 1
     else:
         obj.upVote = 1
+        
     db.session.commit()
     return jsonify(count = obj.upVote)
 

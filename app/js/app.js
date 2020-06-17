@@ -16,7 +16,7 @@ function upvote(ele, id) {
         success: function (data) {
             const ideas = JSON.parse(data);
             console.log(ideas);
-            addUpVote(ideas['count']);
+            addUpVote(ideas.count);
         },
         data: JSON.stringify({'id':id})
     });

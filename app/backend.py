@@ -106,12 +106,14 @@ def add_upvote():
     print("Upvote")
     u_data = request.json
     obj = Ideas.query.filter_by(id = u_data['id']).first()
-    if obj.upVote:
+    print(obj.upVote)
+    print(type(obj.upVote))
+    if obj.upVote is not None:
         obj.upVote += 1
     else:
         obj.upVote = 1
     db.session.commit()
-    return json.dumps({"success":True,"count":obj.upVote})
+    return jsonify(count = obj.upVote)
 
 
 @app.route("/")

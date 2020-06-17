@@ -77,7 +77,7 @@ async function init() {
             console.log(ideas);
         }
     });
-    // setTimeout(init, 5000);
+    setTimeout(init, 5000);
 }
 
 init();

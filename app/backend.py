@@ -1,12 +1,14 @@
 import argparse
 import json
 import os
-import datetime
+from datetime import datetime, timedelta
 from flask import Flask, g, jsonify, render_template, request, abort
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from .models import Ideas
 import time
+
+
 
 app = Flask(__name__, static_folder='', static_url_path='')
 app.config.from_object(__name__)
@@ -66,7 +68,11 @@ def retr_dict(obj=None):
         return_dict['text'] = obj.text
         return_dict['tech'] = obj.tech
         return_dict['viewer'] = obj.viewer
-        return_dict['time'] = obj.time
+        if obj.time:
+            readable = obj.time + timedelta(hours = 5) +timedelta(minutes = 30)
+            return_dict['time'] = readable.strftime("%d-%B-%Y, %I:%M:%S %p")
+        else:
+            retr_dict['time'] = "N/A"
     return return_dict
 
 @app.route("/livestream", methods=["GET"])
@@ -77,8 +83,6 @@ def get_todos():
         print("Objects %s ",selection)
         return_list = []
         for obj in selection:
-            if obj.time:
-                obj.time = obj.time.strftime("%d-%B-%Y, %I:%M:%S %p")
             return_list.append(retr_dict(obj=obj))
         print(return_list)
         return json.dumps(return_list)

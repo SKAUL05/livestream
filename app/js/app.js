@@ -1,4 +1,11 @@
 document.getElementById('form').addEventListener('submit', sendIdea);
+
+function addUpVote(count) {
+    document.getElementById(
+        'vote'
+    ).innerHTML += `<small> ( ${count} ) </small>`     
+}
+
 function upvote(ele, id) {
     console.log(id);
      $.ajax({
@@ -9,6 +16,7 @@ function upvote(ele, id) {
         success: function (data) {
             const ideas = JSON.parse(data);
             console.log(ideas);
+            addUpVote(ideas['count']);
         },
         data: JSON.stringify({'id':id})
     });
@@ -52,8 +60,10 @@ function renderIdea(idea) {
           <br />
           <em>Submitted by ${idea.viewer}</em>
           <br />
-          <small>${idea.time}</small>
+          <small>${idea.time}</small> &emsp;
+          <p id = "vote">
            <i onclick="upvote(this,${idea.id})" class="fa fa-thumbs-up"></i>
+           </p>
         </p>
        
       </div>

@@ -15,9 +15,7 @@ function upvote(ele, id) {
         contentType: 'application/json',
         success: function (data) {
             console.log(data);
-            const ideas = JSON.parse(data);
-            console.log(ideas);
-            addUpVote(ideas.count);
+            addUpVote(data.count);
         },
         data: JSON.stringify({'id':id})
     });

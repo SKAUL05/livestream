@@ -17,10 +17,6 @@ app.config.update(
 
 # initialize the database connection
 db = SQLAlchemy(app)
-db.create_all()
-db.session.commit()
-
-
 
 
 # Setting up the app database
@@ -110,14 +106,5 @@ def show_todos():
 if __name__ == '__main__':
     app.run(debug=True)
 
-# if __name__ == "__main__":
-#     parser = argparse.ArgumentParser(description="Run the Flask todo app")
-#     parser.add_argument("--setup", dest="run_setup", action="store_true")
-
-#     args = parser.parse_args()
-#     if args.run_setup:
-#         dbSetup()
-#     else:
-#         app.run(debug=True)
 
 

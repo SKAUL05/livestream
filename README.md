@@ -23,13 +23,6 @@ Run `requirements.txt` to install all the dependencies
 pip install -r requirements.txt
 ```
 
-## Start RethinkDB
-
-Make sure you have RethinkDB running. You can start RethinkDB by typing below command in terminal.
-
-```
-rethinkdb
-```
 
 ## Running the application
 
@@ -48,7 +41,7 @@ python backend.py
 ## Built With
 
 - `Python`
-- `RethinkDB`
+- `PostgreSQL`
 - `Flask`
 - `JavaScript`
 

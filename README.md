@@ -2,7 +2,7 @@
 
 ### ✨ [Demo]
 
-## Livestream Project Ideas using RethinkDB and Flask
+## Livestream Project Ideas using PostgreSQL and Flask
 
 ## Getting Started
 

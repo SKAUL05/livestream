@@ -46,7 +46,7 @@ python backend.py
 - `JavaScript`
 
 ## Contributing
-
+- Read [Contribution Guidelines](https://github.com/SKAUL05/livestream/blob/master/CONTRIBUTING.md) before you contribute.
 - 🔃 Create a new pull request using <a href="https://github.com/SKAUL05/livestream/compare/" target="_blank">`https://github.com/SKAUL05/livestream/compare`</a>
 
 ## ➤ Author

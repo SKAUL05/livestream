@@ -1,3 +1,6 @@
+<!--General Instructions for BITSoC 2020 Candidates-->
+<!--Label your issue properly. I have created a bitsoc20 label. Make sure u tag that label. Moreover assign certain tag like (documentation, bug, enhancement) to your issue. It helps in arranging and addressing the issues properly.-->
+
 #### Description of the problem
 
 <!--Please provide a clear and details information of the bug/data structure to be added.-->

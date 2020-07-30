@@ -21,4 +21,4 @@ jobs:
         run: |
           export PATH="/usr/share/miniconda/bin:$PATH"
           source activate black
-          black --check stools
+          black --check .

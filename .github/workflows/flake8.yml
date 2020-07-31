@@ -10,7 +10,7 @@ on:
 
 jobs:
   gitHubActionForFlake8:
-    name: GitHub Action for Flake8
+    name: Flake8 Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

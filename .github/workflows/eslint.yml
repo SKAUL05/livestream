@@ -10,6 +10,7 @@ on:
 
 jobs:
   eslint:
+    name: ESLint Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1

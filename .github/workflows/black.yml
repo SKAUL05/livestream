@@ -10,6 +10,7 @@ on:
 
 jobs:
   formatting:
+    name: Black Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,4 +22,4 @@ jobs:
         run: |
           export PATH="/usr/share/miniconda/bin:$PATH"
           source activate black
-          black --check stools
+          black --check .

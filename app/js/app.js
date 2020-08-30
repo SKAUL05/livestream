@@ -49,19 +49,19 @@ async function sendIdea(e) {
 function renderIdea(idea) {
   document.getElementById(
     "ideas"
-  ).innerHTML += `<div class="card bg-secondary my-3">
+  ).innerHTML += `<div class="card my-3" style="background-color: rgb(0,0,0,0.4);">
       <div class="card-body">
-        <p class="lead">
-          ${idea.text} <strong>(${idea.tech})</strong>
-          <br />
-          <em>Submitted by ${idea.viewer}</em>
-          <br />
-          <small>${idea.time}</small> &emsp;
-          <p id = "vote">
-           <i onclick="upvote(this,${idea.id})" class="fa fa-thumbs-up"></i>
-           </p>
-        </p>
-       
+        <div class="card-title">
+          <h4>${idea.text}</h4>
+          <h6>[${idea.tech}]</h6>
+        </div>
+        <div class="mt-3">
+          <em style="font-size: large;">Submitted by ${idea.viewer}</em>
+        </div>
+        <div class="text-muted">${idea.time}</div> &emsp;
+        <div id="vote">
+          <i onclick="upvote(this,${idea.id})" class="fa fa-thumbs-up fa-lg"></i>
+        </div>
       </div>
     </div>`;
 }

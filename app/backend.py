@@ -34,22 +34,7 @@ db = SQLAlchemy(app)
 #         connection.close()
 
 
-# Managing connections
 
-# The pattern we're using for managing database connections is to have **a connection per request**.
-# We're using Flask's `@app.before_request` and `@app.teardown_request` for
-# [opening a database connection](http://www.rethinkdb.com/api/python/connect/) and
-# [closing it](http://www.rethinkdb.com/api/python/close/) respectively.
-# @app.before_request
-# def before_request():
-#     try:
-#         print("Requesting.....")
-#         g.rdb_conn = r.connect(host=RDB_HOST, port=RDB_PORT, db=PROJECT_DB ,user =DB_USER, password = DB_PASSWORD )
-#         print(g.rdb_conn)
-#     except RqlDriverError as e:
-#         print("Errorr..........")
-#         print(e)
-#         print("No database connection could be established.")
 
 
 @app.teardown_request
@@ -71,7 +56,7 @@ def retr_dict(obj=None):
             readable = obj.time + timedelta(hours=5) + timedelta(minutes=30)
             return_dict["time"] = readable.strftime("%d-%B-%Y, %I:%M:%S %p")
         else:
-            retr_dict["time"] = "N/A"
+            retr_dict["time"] = "None"
     return return_dict
 
 
@@ -105,7 +90,7 @@ def new_todo():
 
 @app.route("/upvote", methods=["POST"])
 def add_upvote():
-    print("Upvote")
+    
     u_data = request.json
     obj = Ideas.query.filter_by(id=u_data["id"]).first()
     print(obj.upVote)

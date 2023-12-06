@@ -66,9 +66,7 @@ def get_todos():
     try:
         selection = Ideas.query.order_by(Ideas.id).all()
         print("Objects %s ", selection)
-        return_list = []
-        for obj in selection:
-            return_list.append(retr_dict(obj=obj))
+        return_list = [retr_dict(obj=obj) for obj in selection]
         print(return_list)
         return json.dumps(return_list)
     except Exception as e:
